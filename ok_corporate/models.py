@@ -1,10 +1,13 @@
+from dataclasses import fields
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class Company(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
-    rating = models.DecimalField(decimal_places=2, max_digits=2)
+    rating = models.IntegerField(validators=[MinValueValidator(1),
+                                             MaxValueValidator(5)])
 
     def __str__(self):
         return self.name
