@@ -1,4 +1,4 @@
 -- settings.sql
-CREATE DATABASE ok_corporate;
-CREATE USER adminuser WITH PASSWORD 'admin';
-GRANT ALL PRIVILEGES ON DATABASE ok_corporate TO adminuser;
+CREATE DATABASE ok__corporate;
+CREATE USER ryan WITH PASSWORD 'ryan';
+GRANT ALL PRIVILEGES ON DATABASE ok__corporate TO ryan;

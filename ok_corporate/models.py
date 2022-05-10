@@ -1,5 +1,6 @@
 from dataclasses import fields
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
@@ -13,12 +14,18 @@ class Company(models.Model):
         return self.name
 
 
-class User(models.Model):
-    firstname = models.CharField(max_length=100)
-    lastname = models.CharField(max_length=100)
-    username = models.CharField(max_length=20)
-    email = models.CharField(max_length=100)
-    password = models.CharField(max_length=50)
+# class User(models.Model):
+#     firstname = models.CharField(max_length=100)
+#     lastname = models.CharField(max_length=100)
+#     username = models.CharField(max_length=20)
+#     email = models.CharField(max_length=100)
+#     password = models.CharField(max_length=50)
+
+#     def __str__(self):
+#         return self.username
+
+# AN ATTEMPT AT AUTH
+class User(AbstractUser):
 
     def __str__(self):
         return self.username
