@@ -18,8 +18,10 @@ urlpatterns = [
     path('users/<int:pk>', views.UserDetail.as_view(), name='user_detail'),
     path('users/<str:username>', views.UserDetailByUsername.as_view(),
          name='user_detail_by_username'),
+    # Review paths
     path('reviews/', views.ReviewList.as_view(), name='review_list'),
     path('reviews/<int:pk>', views.ReviewDetail.as_view(), name='review_detail'),
+    # Company paths
     path('company/', views.CompanyList.as_view(), name='company_list'),
     path('company/<int:pk>', views.CompanyDetail.as_view(), name='company_detail'),
 

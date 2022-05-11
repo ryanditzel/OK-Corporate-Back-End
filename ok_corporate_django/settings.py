@@ -104,7 +104,6 @@ TEMPLATES = [
         },
     },
 ]
-
 WSGI_APPLICATION = 'ok_corporate_django.wsgi.application'
 
 
