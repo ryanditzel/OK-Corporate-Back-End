@@ -1,10 +1,11 @@
+from cgitb import lookup
 from django.shortcuts import render
 from rest_framework import generics, status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
-from .serializers import CompanySerializer, UserSerializer, ReviewSerializer
-from .models import Company, User, Review
+from .serializers import CompanySerializer, UserSerializer, ReviewSerializer, CompanyReviewSerializer
+from .models import Company, CompanyReview, User, Review
 
 
 class UserList(APIView):
@@ -68,3 +69,8 @@ class ReviewList(generics.ListCreateAPIView):
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+
+
+class CompanyReviewDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CompanyReview.objects.all()
+    serializer_class = CompanyReviewSerializer

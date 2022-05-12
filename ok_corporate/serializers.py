@@ -1,18 +1,6 @@
 from rest_framework import serializers
-from .models import Company, User, Review
+from .models import Company, User, Review, CompanyReview
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-
-
-class CompanySerializer(serializers.HyperlinkedModelSerializer):
-    reviews = serializers.HyperlinkedRelatedField(
-        view_name='review_detail',
-        many=True,
-        read_only=True
-    )
-
-    class Meta:
-        model = Company
-        fields = ('id', 'name', 'location', 'rating', 'reviews')
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -37,18 +25,39 @@ class UserSerializer(serializers.ModelSerializer):
         return instance
 
 
-class ReviewSerializer(serializers.HyperlinkedModelSerializer):
-    companies = serializers.HyperlinkedRelatedField(
-        view_name='company_detail',
+class CompanySerializer(serializers.ModelSerializer):
+    review = serializers.HyperlinkedRelatedField(
+        read_only=True,
+        view_name='ReviewDetail',
+        many=False
+    )
+
+    class Meta:
+        model = Company
+        fields = ('id', 'name', 'location', 'rating', 'review')
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    company = CompanySerializer(
+        # view_name='company_detail',
         read_only=True
     )
 
-    user = serializers.HyperlinkedRelatedField(
-        view_name='user_detail',
+    user = UserSerializer(
+        # view_name='user_detail',
         read_only=True
     )
 
     class Meta:
         model = Review
         fields = ('id', 'company', 'user', 'title', 'jobtitle',
-                  'body', 'helpful', 'unhelpful', 'companies')
+                  'body', 'helpful', 'unhelpful')
+
+
+class CompanyReviewSerializer(serializers.HyperlinkedModelSerializer):
+    company = CompanySerializer(read_only=True, source='company_id')
+    review = ReviewSerializer(read_only=True, many=True, source='review_id')
+
+    class Meta:
+        model = CompanyReview
+        fields = ('company', 'review')
